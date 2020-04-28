@@ -1,5 +1,5 @@
 class Piece
-    
+    attr_reader :color
     def initialize(pos,board)
         get_color(pos)
         @pos, @board = pos, board
@@ -9,7 +9,13 @@ class Piece
         row,col = pos
         row.between?(0,1) ? @color = :black : @color = :white
     end
+
+    def pos=(value)
+        @pos = value
+    end
 end
+
+
 class Rook < Piece
 end
 
