@@ -13,10 +13,6 @@ class Board
        end
     end
 
-    def make_grid
-      @rows = Array.new(8) {Array.new(8)}
-    end
-
     def []=(pos,value)
       row,col = pos
       @rows[row][col] = value
@@ -28,7 +24,13 @@ class Board
     end
 
     def valid_pos?(pos)
-    pos.all? { |n| n.between?(0,8)}
+      pos.all? { |n| n.between?(0,8)}
+    end 
+
+    private
+
+    def make_grid
+      @rows = Array.new(8) {Array.new(8)}
     end
 
     def add_piece(pos,piece)
