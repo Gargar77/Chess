@@ -3,8 +3,8 @@ module Stepable
     def moves
         deltas = move_diff
         start_row,start_col = pos
-        possible_moves = deltas.map { |(row,col)| [start_row + row,start_col + col]}
-        possible_moves.reject! { |el| !valid_pos?(pos)}
-        possible_moves
+        p possible_moves = deltas.map { |(row,col)| [start_row + row,start_col + col]}
+       current_possible_moves = possible_moves.select { |el| valid_pos?(el)}
+       p current_possible_moves
     end
 end

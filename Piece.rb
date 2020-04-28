@@ -17,6 +17,7 @@ class Piece
     end
 
     def valid_pos?(pos)
+        # debugger
         return false if pos.any? { |num| !num.between?(0,7)}
         return true if @board[pos].nil?
          current_piece_color = self.color

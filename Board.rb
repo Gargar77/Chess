@@ -90,8 +90,5 @@ end
 
 b = Board.new
 b.populate
-pos = [6,1]
-p b[pos].valid_pos?([0,1]) #=>true
-p b[pos].valid_pos?([6,1]) #=> false
-p b[pos].valid_pos?([4,4]) #=> true
-p b[pos].valid_pos?([9,9]) #=> false 
+pos = [0,1]
+ b[pos].moves
