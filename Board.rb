@@ -24,13 +24,14 @@ class Board
     end
 
     def valid_pos?(pos)
-      pos.all? { |n| n.between?(0,8)}
+      pos.all? { |n| n.between?(0,7)}
     end
 
     def move_piece(start_pos,end_pos)
       raise "There is no piece at #{start_pos.to_s}!" if self[start_pos] == nil
       [start_pos,end_pos].each {|el| raise "#{el.to_s} is an invalid position!" if !valid_pos?(el)} 
       raise "cannot move to #{end_pos.to_s}!" if self[end_pos] != nil
+      
         piece = self[start_pos]
         piece.pos = end_pos
         self[start_pos] = nil
@@ -86,3 +87,11 @@ class Board
     
 end
 
+
+b = Board.new
+b.populate
+pos = [6,1]
+p b[pos].valid_pos?([0,1]) #=>true
+p b[pos].valid_pos?([6,1]) #=> false
+p b[pos].valid_pos?([4,4]) #=> true
+p b[pos].valid_pos?([9,9]) #=> false 
