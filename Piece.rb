@@ -34,12 +34,15 @@ end
 
 
 class Rook < Piece
+    include Slideable
 end
 
 class Bishop < Piece
+    include Slideable
 end
 
 class Queen < Piece
+    include Slideable
 end
 
 class Knight < Piece

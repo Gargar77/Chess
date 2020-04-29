@@ -8,3 +8,45 @@ module Stepable
        p current_possible_moves
     end
 end
+
+module Slideable
+    def horizontal_dirs
+      
+    end
+
+    def left_positions
+        start_pos = self.pos
+
+        current_pos = start_pos
+        left_positions = []
+        while valid_pos?(current_pos)
+            row,col = current_pos
+            current_pos = [row,col - 1]
+            left_positions << current_pos
+        end
+        left_positions.pop
+        return left_positions
+    end
+
+    def right_positions
+        start_pos = self.pos
+
+        current_pos = start_pos
+        right_positions = []
+        while valid_pos?(current_pos)
+            row,col = current_pos
+            current_pos = [row,col + 1]
+            right_positions << current_pos
+        end
+        right_positions.pop
+        return right_positions
+    end
+
+    def diagnol_dirs
+        
+    end
+
+    def moves
+
+    end
+end
