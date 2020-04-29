@@ -94,6 +94,10 @@ end
 class Pawn < Piece
 end
 
-class NullPiece < Piece
+class NullPiece
+    include Singleton
+    def initialize
+        @color = :null
+    end
 end
 
