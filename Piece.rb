@@ -118,6 +118,52 @@ class Pawn < Piece
         @symbol = 'P'
     end
 
+    def moves
+        deltas = move_diff
+        current_pos = self.pos
+        start_row,start_col = current_pos
+
+        possible_moves = deltas.map {|(row,col)| [start_row + row, start_col + col]}
+        curent_possible_moves = possible_moves.select { |el| valid_pos?(el) }
+        curent_possible_moves += side_attack(current_pos)
+        return curent_possible_moves
+    end
+
+    def move_diff   
+        if self.color == :black
+            if at_start_row?
+                possible_moves = [[2,0],[-1,0],[1,0]]
+            else
+                possible_moves = [[1,0],[-1,0]]
+            end
+        else
+            if at_start_row?
+                possible_moves = [[-1,0],[1,0],[-2,0]]
+            else
+                possible_moves = [[-1,0],[1,0]]
+            end
+        end
+        return possible_moves
+    end
+
+    def side_attack(pos)
+        attack_diffs = [[-1,-1],[1,1]]
+        row,col = pos
+         row
+         col
+        side_moves = []
+        
+        attack_diffs.each do |dif|
+            d_row,d_col = dif
+             attack_pos = [row + d_row, col + d_col]
+
+            if valid_pos?(attack_pos) && @board[attack_pos] != nil
+                side_moves << attack_pos if @board[attack_pos].color != self.color
+            end
+        end
+        side_moves
+    end
+
     def start_pos
        @start_pos 
     end
@@ -125,17 +171,13 @@ class Pawn < Piece
     def at_start_row?
         pos == start_pos
     end
-
-    def forward_step
-       return 2 if at_start_row?
-       return 1
-    end
 end
 
 class NullPiece
-    include Singleton
+    # include Singleton
+    attr_reader :color
     def initialize
-        @color = :null
+        @color = :white
         @symbol = "n"
     end
 end

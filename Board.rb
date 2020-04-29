@@ -90,9 +90,42 @@ end
 
 b = Board.new
 b.populate
-p b
 
-
+pos = [1,0]
+p 'pawn'
+p b[pos].move_diff
+p b[pos].moves
+puts
+pos = [1,3]
+p 'pawn'
+p b[pos].move_diff
+p b[pos].moves
+puts
+pos = [1,6]
+p 'pawn'
+p b[pos].move_diff
+p b[pos].moves
+puts
+pos = [6,0]
+p 'pawn'
+p b[pos].move_diff
+p b[pos].moves
+puts
+pos = [6,1]
+p 'pawn'
+p b[pos].move_diff
+p b[pos].moves
+puts
+pos = [6,3]
+p 'pawn'
+p b[pos].move_diff
+p b[pos].moves
+puts
+pos = [6,5]
+p 'pawn'
+p b[pos].move_diff
+p b[pos].moves
+puts
 
 # pos = [7,0]
 # p 'Rook'
