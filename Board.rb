@@ -91,9 +91,11 @@ end
 b = Board.new
 b.populate
 pos = [0,2]
-p b[pos].right_positions
-p b[pos].left_positions
+# p b[pos].right_positions
+# p b[pos].left_positions
+p b[pos].horizontal_dirs
 puts
 pos = [0,3]
-p b[pos].right_positions
-p b[pos].left_positions
+# p b[pos].right_positions
+# p b[pos].left_positions
+p b[pos].horizontal_dirs

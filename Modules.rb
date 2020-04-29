@@ -11,9 +11,19 @@ end
 
 module Slideable
     def horizontal_dirs
-      
+      horizontal_dirs = left_positions + right_positions
+      return horizontal_dirs
     end
 
+    def diagnol_dirs
+        
+    end
+
+    def moves
+
+    end
+    
+private
     def left_positions
         start_pos = self.pos
 
@@ -42,11 +52,4 @@ module Slideable
         return right_positions
     end
 
-    def diagnol_dirs
-        
-    end
-
-    def moves
-
-    end
 end
