@@ -44,7 +44,8 @@ end
 
 class Knight < Piece
     include Stepable
-
+    
+    protected
     def move_diff
         possible_moves = [
             [-2,-1],
