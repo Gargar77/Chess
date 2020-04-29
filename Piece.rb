@@ -34,14 +34,21 @@ end
 
 
 class Rook < Piece
+    include Slideable
     def diagnol_dirs
         return []
     end
-    include Slideable
+    
 end
 
 class Bishop < Piece
     include Slideable
+    def horizontal_dirs
+        return []
+    end
+    def vertical_dirs
+        return []
+    end
 end
 
 class Queen < Piece

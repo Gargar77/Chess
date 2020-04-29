@@ -67,7 +67,7 @@ class Board
     end
 
     def add_back_row(color)
-      row = [Rook,Knight,Bishop,Queen,King,Bishop,Knight,Rook]
+      row = [Rook,Knight,Bishop,King,Queen,Bishop,Knight,Rook]
       if color == :black
         col = 0
         row.each do |piece|
@@ -90,10 +90,38 @@ end
 
 b = Board.new
 b.populate
-pos = [7,0]
 
-p b[pos].diagnol_dirs
+
+
+pos = [7,0]
+p 'Rook'
+p b[pos].moves
+puts
+pos = [7,1]
+p 'knight'
+p b[pos].moves
 puts
 pos = [7,2]
-
-p b[pos].diagnol_dirs
+p 'bishop'
+p b[pos].moves
+puts
+pos = [7,3]
+p 'King'
+p b[pos].moves
+puts
+pos = [7,4]
+p 'Queen'
+p b[pos].moves
+puts
+pos = [7,5]
+p 'bishop'
+p b[pos].moves
+puts
+pos = [7,6]
+p 'Knight'
+p b[pos].moves
+puts
+pos = [7,7]
+p 'Rook'
+p b[pos].moves
+puts
