@@ -1,5 +1,6 @@
 require_relative "Modules"
 require "byebug"
+require "singleton"
 class Piece
     attr_reader :color, :pos
     def initialize(pos,board)
@@ -35,6 +36,10 @@ end
 
 class Rook < Piece
     include Slideable
+    def initialize(pos,board)
+        super
+        @symbol = 'R'
+    end
     def diagnol_dirs
         return []
     end
@@ -43,6 +48,10 @@ end
 
 class Bishop < Piece
     include Slideable
+    def initialize(pos,board)
+        super
+        @symbol = 'B'
+    end
     def horizontal_dirs
         return []
     end
@@ -53,11 +62,18 @@ end
 
 class Queen < Piece
     include Slideable
+    def initialize(pos,board)
+        super
+        @symbol = 'Q'
+    end
 end
 
 class Knight < Piece
     include Stepable
-    
+    def initialize(pos,board)
+        super
+        @symbol = 'Kn'
+    end
     protected
     def move_diff
         possible_moves = [
@@ -75,6 +91,10 @@ end
 
 class King < Piece
     include Stepable
+    def initialize(pos,board)
+        super
+        @symbol = 'K'
+    end
     
     protected
     def move_diff
@@ -98,6 +118,7 @@ class NullPiece
     include Singleton
     def initialize
         @color = :null
+        @symbol = "n"
     end
 end
 

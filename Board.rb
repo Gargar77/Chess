@@ -90,38 +90,39 @@ end
 
 b = Board.new
 b.populate
+p b
 
 
 
-pos = [7,0]
-p 'Rook'
-p b[pos].moves
-puts
-pos = [7,1]
-p 'knight'
-p b[pos].moves
-puts
-pos = [7,2]
-p 'bishop'
-p b[pos].moves
-puts
-pos = [7,3]
-p 'King'
-p b[pos].moves
-puts
-pos = [7,4]
-p 'Queen'
-p b[pos].moves
-puts
-pos = [7,5]
-p 'bishop'
-p b[pos].moves
-puts
-pos = [7,6]
-p 'Knight'
-p b[pos].moves
-puts
-pos = [7,7]
-p 'Rook'
-p b[pos].moves
-puts
+# pos = [7,0]
+# p 'Rook'
+# p b[pos].moves
+# puts
+# pos = [7,1]
+# p 'knight'
+# p b[pos].moves
+# puts
+# pos = [7,2]
+# p 'bishop'
+# p b[pos].moves
+# puts
+# pos = [7,3]
+# p 'King'
+# p b[pos].moves
+# puts
+# pos = [7,4]
+# p 'Queen'
+# p b[pos].moves
+# puts
+# pos = [7,5]
+# p 'bishop'
+# p b[pos].moves
+# puts
+# pos = [7,6]
+# p 'Knight'
+# p b[pos].moves
+# puts
+# pos = [7,7]
+# p 'Rook'
+# p b[pos].moves
+# puts
