@@ -10,20 +10,37 @@ module Stepable
 end
 
 module Slideable
+    #class must have @pos attribute and #valid_pos?
     def horizontal_dirs
       horizontal_dirs = left_positions + right_positions
       return horizontal_dirs
     end
 
     def diagnol_dirs
-        
+        diffs = [[-1,-1], [1,-1], [-1,1], [1,1]]
+        start_pos = self.pos
+        diag_positions = []
+        diffs.each do |dif|
+
+            row_diff,col_diff = dif
+            current_pos = start_pos
+          while valid_pos?(current_pos)
+            row,col = current_pos
+            current_pos = [row + row_diff , col + col_diff]
+            diag_positions << current_pos
+          end
+            diag_positions.pop
+        end
+
+        return diag_positions
     end
 
     def moves
 
     end
-    
-private
+
+# private
+
     def left_positions
         start_pos = self.pos
 

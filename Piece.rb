@@ -34,6 +34,9 @@ end
 
 
 class Rook < Piece
+    def diagnol_dirs
+        return []
+    end
     include Slideable
 end
 
@@ -64,6 +67,21 @@ class Knight < Piece
 end
 
 class King < Piece
+    include Stepable
+    
+    protected
+    def move_diff
+        possible_moves = [
+            [-1,-1],
+            [-1,0],
+            [-1,1],
+            [0,-1],
+            [0, 1],
+            [1,-1],
+            [1,0],
+            [1,1]
+        ]
+    end
 end
 
 class Pawn < Piece
