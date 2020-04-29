@@ -112,6 +112,24 @@ class King < Piece
 end
 
 class Pawn < Piece
+    def initialize(pos,board)
+        super
+        @start_pos = pos
+        @symbol = 'P'
+    end
+
+    def start_pos
+       @start_pos 
+    end
+
+    def at_start_row?
+        pos == start_pos
+    end
+
+    def forward_step
+       return 2 if at_start_row?
+       return 1
+    end
 end
 
 class NullPiece
