@@ -2,6 +2,7 @@ require "io/console"
 
 KEYMAP = {
   " " => :space,
+  'q' => :debug,
   "h" => :left,
   "j" => :down,
   "k" => :up,
@@ -20,7 +21,7 @@ KEYMAP = {
   "\e[D" => :left,
   "\177" => :backspace,
   "\004" => :delete,
-  "\u0003" => :ctrl_c,
+  "\u0003" => :ctrl_c
 }
 
 MOVES = {
@@ -32,12 +33,13 @@ MOVES = {
 
 class Cursor
 include Process
-  attr_reader :cursor_pos, :board, :selected
+  attr_reader :cursor_pos, :board, :selected, :debug
 
   def initialize(cursor_pos, board)
     @cursor_pos = cursor_pos
     @board = board
     @selected = false
+    @debug = false
   end
 
   def get_input
@@ -86,6 +88,8 @@ include Process
         return @cursor_pos
     when :ctrl_c
         Process.exit(0)
+    when :debug
+        @debug == true ? @debug = false : @debug = true
     end
   end
 

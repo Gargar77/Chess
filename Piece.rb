@@ -144,28 +144,61 @@ class Pawn < Piece
         possible_moves = deltas.map {|(row,col)| [start_row + row, start_col + col]}
         curent_possible_moves = possible_moves.select { |el| valid_pos?(el) }
         curent_possible_moves += side_attack(current_pos)
+
         return curent_possible_moves
     end
 
     def move_diff   
         if self.color == :black
             if at_start_row?
-                possible_moves = [[2,0],[-1,0],[1,0]]
+                if front_blocked?
+                    possible_moves = [[-1,0]]
+                else
+                    possible_moves = [[2,0],[-1,0],[1,0]]
+                end
             else
-                possible_moves = [[1,0],[-1,0]]
+                if front_blocked?
+                    possible_moves = [[-1,0]]
+                else
+                    possible_moves = [[1,0],[-1,0]]
+                end
             end
         else
             if at_start_row?
-                possible_moves = [[-1,0],[1,0],[-2,0]]
+                if front_blocked?
+                    possible_moves = [[1,0]]
+                else
+                    possible_moves = [[-1,0],[1,0],[-2,0]]
+                end
             else
-                possible_moves = [[-1,0],[1,0]]
+                if front_blocked?
+                    possible_moves = [[1,0]]
+                else
+                    possible_moves = [[-1,0],[1,0]]
+                end
             end
         end
         return possible_moves
     end
 
+    def front_blocked?
+        current_pos = self.pos
+        if self.color == :white
+            row,col = current_pos
+            return true if board[[row - 1,col]] != board.sentinel
+        else 
+            row,col = current_pos
+            return true if board[[row + 1,col]] != board.sentinel
+        end
+        false
+    end
+
     def side_attack(pos)
-        attack_diffs = [[-1,-1],[1,1]]
+        if self.color == :white 
+            attack_diffs = [[-1,-1],[-1,1]] 
+        else
+            attack_diffs = [[1,-1],[1,1]]
+        end
         row,col = pos
          row
          col
@@ -197,6 +230,10 @@ class NullPiece
     def initialize
         @symbol = "n"
         @color = nil
+    end
+
+    def valid_moves
+        return []
     end
 end
 
