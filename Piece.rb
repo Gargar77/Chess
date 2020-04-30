@@ -2,7 +2,7 @@ require_relative "Modules"
 require "byebug"
 require "singleton"
 class Piece
-    attr_reader :color, :pos, :board
+    attr_reader :color, :pos, :board, :symbol
     def initialize(pos,board)
         get_color(pos)
         @pos, @board = pos, board
@@ -76,7 +76,7 @@ class Knight < Piece
     include Stepable
     def initialize(pos,board)
         super
-        @symbol = 'k'
+        @symbol = 'n'
     end
     protected
     def move_diff
@@ -179,8 +179,10 @@ end
 
 class NullPiece
     include Singleton
+    attr_reader :symbol, :color
     def initialize
         @symbol = "n"
+        @color = nil
     end
 end
 

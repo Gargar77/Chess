@@ -41,16 +41,37 @@ class Board
     end
 
     def in_check?(color)
-      # rows.each_with_index do |row,idx1|
-      #   row.each_with_inde do |col,idx1|
-
+     p king_pos = find_king(color)
+     p opposing_piece_moves = opposing_moves(color)
+      opposing_piece_moves.any? { |move| move == king_pos}
     end
 
 
     private
 
+    def find_king(color)
+      rows.each_with_index do |row,idx1|
+        row.each_with_index do |piece,idx2|
+          if piece.symbol == 'K' && piece.color == color
+            return [idx1,idx2]
+          end
+        end
+      end
+    end
     def make_grid
       @rows = Array.new(8) {Array.new(8)}
+    end
+
+    def opposing_moves(color)
+      opp_moves = []
+      rows.each_with_index do |row,idx1|
+        row.each_with_index do |col,idx2|
+          if col.color != color && col != sentinel
+            opp_moves += col.moves
+          end
+        end
+      end
+      return opp_moves
     end
 
     def add_piece(pos,piece)
