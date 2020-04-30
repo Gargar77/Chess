@@ -21,16 +21,16 @@ end
 # e7, e5
 # g2, g4
 # d8, h4
-#  g.board.move_piece([6,5],[5,5])
-#  g.board.move_piece([1,4],[3,4])
-#  g.board.move_piece([6,6],[4,6])
-#  g.board.move_piece([0,3],[4,7])
+ g.board.move_piece([6,5],[5,5])
+ g.board.move_piece([1,4],[3,4])
+ g.board.move_piece([6,6],[4,6])
+ g.board.move_piece([0,3],[4,7])
 #  g.board.move_piece([4,7],[5,7])
-#  system("clear")
-#  g.display.render
+ system("clear")
+ g.display.render
 
-
-#  p g.board.in_check?(:black)
-# p g.board.checkmate?(:black)
- 
+ p g.board.in_check?(:black)
+ p g.board.checkmate?(:black)
+ p g.board[[4,7]].valid_moves
+ g.display.render
  

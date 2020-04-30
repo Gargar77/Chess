@@ -32,7 +32,7 @@ class Board
     def move_piece(start_pos,end_pos)
       raise "There is no piece at #{start_pos.to_s}!" if self[start_pos] == sentinel
       [start_pos,end_pos].each {|el| raise "#{el.to_s} is an invalid position!" if !valid_pos?(el)} 
-      raise "cannot move to #{end_pos.to_s}!" if self[end_pos] != sentinel
+      raise "cannot move to #{end_pos.to_s}!" if self[end_pos].color == self[start_pos].color
       
         piece = self[start_pos]
         piece.pos = end_pos
@@ -49,10 +49,16 @@ class Board
     def checkmate?(color)
       king_pos = find_king(color)
       king_moves = self[king_pos].moves
-      return true if king_moves = []
+      return true if king_moves == []
       opposing_moves = opposing_moves(color)
       return true if in_check?(color) && king_moves.all? { |move| opposing_moves.include?(move)}
       false
+    end
+    
+    def dup
+      original_board = self
+      dup = Marshal.load(Marshal.dump(original_board))
+      return dup
     end
 
 
@@ -140,5 +146,7 @@ class Board
 end
 
 
-#  b = Board.new
-#  b.populate
+b = Board.new
+  
+
+b.dup

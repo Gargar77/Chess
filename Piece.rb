@@ -28,6 +28,20 @@ class Piece
     
        true
     end
+    def valid_moves
+         moves
+        val_moves = moves.reject { |move| move_into_check?(move)}
+        return val_moves
+    end
+
+    def move_into_check?(end_pos)
+        dup_board = board.dup
+        start_pos = self.pos
+        my_color = self.color
+        dup_board.move_piece(start_pos,end_pos)
+        status = dup_board.in_check?(my_color)
+
+    end
 
     def moves
     end
@@ -76,7 +90,7 @@ class Knight < Piece
     include Stepable
     def initialize(pos,board)
         super
-        @symbol = 'n'
+        @symbol = 'k'
     end
     protected
     def move_diff
