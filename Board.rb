@@ -4,6 +4,7 @@ class Board
     attr_reader :rows
     def initialize
       make_grid
+      populate
     end
 
     def populate
