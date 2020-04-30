@@ -82,7 +82,7 @@ include Process
         update_pos(MOVES[key])
         nil
     when :return,:space
-        @selected = true
+        @selected == true ?  @selected = false : @selected = true
         return @cursor_pos
     when :ctrl_c
         Process.exit(0)

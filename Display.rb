@@ -26,25 +26,28 @@ class Display
     def print_row(row,row_index)
         row_string = []
         row.each_with_index do |piece,col_index|
+
             if piece == nil
-                if (row_index.even? && col_index.even?) || (row_index.odd? && col_index.even?)
+                if (cursor.cursor_pos == [row_index,col_index] )
+                    row_string << '   '.colorize(:background => :green) if cursor.selected == true
+                    row_string << '   '.colorize(:background => :red) if cursor.selected == false    
+                elsif (row_index.even? && col_index.even?) || (row_index.odd? && col_index.odd?)
                     row_string << '   '.colorize(:background => :white).underline
                 else
-                    row_string << '   '
+                row_string << '   '
                 end
-            elsif piece.pos == cursor.cursor_pos
+
+            elsif (piece.pos == cursor.cursor_pos)
                 if cursor.selected == true
                     row_string << (' ' + piece.to_s + ' ').colorize(:background => :green) 
                 else
-                row_string << (' ' + piece.to_s + ' ').colorize(:background => :red) 
+                    row_string << (' ' + piece.to_s + ' ').colorize(:background => :red) 
                 end
 
-            else
-                if (row_index.even? && col_index.even?) || (row_index.odd? && col_index.even?)
+            elsif (row_index.even? && col_index.even?) || (row_index.odd? && col_index.odd?)
                 row_string << (' ' + piece.to_s + ' ').colorize(:black).colorize(:background => :white).underline
-                else
-                    row_string << ' ' + piece.to_s + ' '
-                end
+            else
+                row_string << ' ' + piece.to_s + ' '
             end
         end
         return row_string.join('')
