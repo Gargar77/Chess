@@ -31,6 +31,10 @@ class Piece
 
     def moves
     end
+
+    def to_s
+        @symbol
+    end
 end
 
 
