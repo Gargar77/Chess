@@ -10,7 +10,8 @@ class Display
     def render
         puts "   " + "-"*34
         build_rows
-        puts "    " + ('a'..'h').to_a.join('   ')
+        letters = ('a'..'h').to_a.map { |char| '  ' + char + ' '}
+        puts "   " + letters.join('')
     end
 
     def build_rows
