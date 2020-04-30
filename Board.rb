@@ -1,7 +1,7 @@
 require_relative "Piece"
 require "byebug"
 class Board
-    attr_reader :rows
+    attr_reader :rows, :sentinel
     def initialize
       make_grid
       populate
@@ -12,6 +12,7 @@ class Board
          add_back_row(color)
          add_pawns(color)
        end
+       add_nill_piece
     end
 
     def []=(pos,value)
@@ -29,14 +30,20 @@ class Board
     end
 
     def move_piece(start_pos,end_pos)
-      raise "There is no piece at #{start_pos.to_s}!" if self[start_pos] == nil
+      raise "There is no piece at #{start_pos.to_s}!" if self[start_pos] == sentinel
       [start_pos,end_pos].each {|el| raise "#{el.to_s} is an invalid position!" if !valid_pos?(el)} 
-      raise "cannot move to #{end_pos.to_s}!" if self[end_pos] != nil
+      raise "cannot move to #{end_pos.to_s}!" if self[end_pos] != sentinel
       
         piece = self[start_pos]
         piece.pos = end_pos
-        self[start_pos] = nil
+        self[start_pos] = sentinel
         self[end_pos] = piece
+    end
+
+    def in_check?(color)
+      # rows.each_with_index do |row,idx1|
+      #   row.each_with_inde do |col,idx1|
+
     end
 
 
@@ -65,6 +72,20 @@ class Board
         end
       end
       true
+    end
+
+    def add_nill_piece
+      null_piece = NullPiece.instance
+      rows.each_with_index do |row,row_idx|
+        row.each_with_index do |col,col_idx|
+          if col == nil
+            self[[row_idx,col_idx]] = null_piece
+          end
+        end
+      end
+      @sentinel = null_piece
+
+
     end
 
     def add_back_row(color)

@@ -27,7 +27,7 @@ class Display
         row_string = []
         row.each_with_index do |piece,col_index|
 
-            if piece == nil
+            if piece == board.sentinel
                 if (cursor.cursor_pos == [row_index,col_index] )
                     row_string << '   '.colorize(:background => :green) if cursor.selected == true
                     row_string << '   '.colorize(:background => :red) if cursor.selected == false    

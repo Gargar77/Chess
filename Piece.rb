@@ -2,7 +2,7 @@ require_relative "Modules"
 require "byebug"
 require "singleton"
 class Piece
-    attr_reader :color, :pos
+    attr_reader :color, :pos, :board
     def initialize(pos,board)
         get_color(pos)
         @pos, @board = pos, board
@@ -20,7 +20,7 @@ class Piece
     def valid_pos?(pos)
         # debugger
         return false if pos.any? { |num| !num.between?(0,7)}
-        return true if @board[pos].nil?
+        return true if @board[pos] == board.sentinel
          current_piece_color = self.color
          end_pos_color = @board[pos].color 
 
@@ -161,7 +161,7 @@ class Pawn < Piece
             d_row,d_col = dif
              attack_pos = [row + d_row, col + d_col]
 
-            if valid_pos?(attack_pos) && @board[attack_pos] != nil
+            if valid_pos?(attack_pos) && @board[attack_pos] != board.sentinel
                 side_moves << attack_pos if @board[attack_pos].color != self.color
             end
         end
@@ -178,10 +178,8 @@ class Pawn < Piece
 end
 
 class NullPiece
-    # include Singleton
-    attr_reader :color
+    include Singleton
     def initialize
-        @color = :white
         @symbol = "n"
     end
 end
