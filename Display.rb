@@ -8,25 +8,30 @@ class Display
     end
 
     def render
-        puts "   " + "-"*34
+        # puts "   " + "-"*34
         build_rows
-        letters = ('a'..'h').to_a.map { |char| '  ' + char + ' '}
-        puts "   " + letters.join('')
+        letters = ('a'..'h').to_a
+        puts
+        puts '      ' + letters.join('  ')
     end
 
     def build_rows
         @board.rows.each_with_index do |row,index|
-            row_num = (8 - index).to_s
-            puts "#{row_num} | #{print_row(row)} |"
-            puts "   " + "-"*34
+            row_num = (8 - index).to_s + '    '
+            puts "#{row_num}#{print_row(row,index)}"
+            #  puts ("   " + "-"*20)
         end
     end
 
-    def print_row(row)
+    def print_row(row,row_index)
         row_string = []
-        row.each do |piece|
+        row.each_with_index do |piece,col_index|
             if piece == nil
-                row_string << '   '
+                if (row_index.even? && col_index.even?) || (row_index.odd? && col_index.even?)
+                    row_string << '   '.colorize(:background => :white).underline
+                else
+                    row_string << '   '
+                end
             elsif piece.pos == cursor.cursor_pos
                 if cursor.selected == true
                     row_string << (' ' + piece.to_s + ' ').colorize(:background => :green) 
@@ -35,9 +40,13 @@ class Display
                 end
 
             else
-                row_string << ' ' + piece.to_s + ' '
+                if (row_index.even? && col_index.even?) || (row_index.odd? && col_index.even?)
+                row_string << (' ' + piece.to_s + ' ').colorize(:black).colorize(:background => :white).underline
+                else
+                    row_string << ' ' + piece.to_s + ' '
+                end
             end
         end
-        return row_string.join("|")
+        return row_string.join('')
     end
 end

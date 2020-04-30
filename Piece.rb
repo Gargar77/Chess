@@ -76,7 +76,7 @@ class Knight < Piece
     include Stepable
     def initialize(pos,board)
         super
-        @symbol = 'Kn'
+        @symbol = 'k'
     end
     protected
     def move_diff
