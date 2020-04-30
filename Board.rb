@@ -41,9 +41,18 @@ class Board
     end
 
     def in_check?(color)
-     p king_pos = find_king(color)
-     p opposing_piece_moves = opposing_moves(color)
+      king_pos = find_king(color)
+      opposing_piece_moves = opposing_moves(color)
       opposing_piece_moves.any? { |move| move == king_pos}
+    end
+
+    def checkmate?(color)
+      king_pos = find_king(color)
+      king_moves = self[king_pos].moves
+      return true if king_moves = []
+      opposing_moves = opposing_moves(color)
+      return true if in_check?(color) && king_moves.all? { |move| opposing_moves.include?(move)}
+      false
     end
 
 
