@@ -17,14 +17,22 @@ require 'byebug'
         until game_over?
           player = @current_player
           moved = false
-         while moved == false  
-            display.render
-            puts "Current Player: #{@current_player.player_name}"
-            moves = player.make_move
-            start_pos,end_pos = moves
-            if !start_pos.nil? && !end_pos.nil?
+         while moved == false
+            begin  
+              display.render
+              puts "Current Player: #{@current_player.player_name}"
+              moves = player.make_move
+              start_pos,end_pos = moves
+             if !start_pos.nil? && !end_pos.nil?
                 start_pos,end_pos = moves
-               moved = board.move_piece(start_pos,end_pos)
+                moved = board.move_piece(start_pos,end_pos)
+             end
+            rescue RuntimeError => e
+                puts
+                puts "Invalid Move!"
+                sleep(1)
+                system('clear')
+            retry
             end
          system('clear')
           end

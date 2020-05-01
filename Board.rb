@@ -81,7 +81,7 @@ class Board
     def find_king(color)
       rows.each_with_index do |row,idx1|
         row.each_with_index do |piece,idx2|
-          if piece.symbol == 'K' && piece.color == color
+          if piece.the_king == true  && piece.color == color
             return [idx1,idx2]
           end
         end

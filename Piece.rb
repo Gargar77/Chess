@@ -2,10 +2,11 @@ require_relative "Modules"
 require "byebug"
 require "singleton"
 class Piece
-    attr_reader :color, :pos, :board, :symbol
+    attr_reader :color, :pos, :board, :symbol, :the_king
     def initialize(pos,board)
         get_color(pos)
         @pos, @board = pos, board
+        @the_king = false
     end
 
     def get_color(pos)
@@ -56,7 +57,7 @@ class Rook < Piece
     include Slideable
     def initialize(pos,board)
         super
-        @symbol = 'R'
+        @symbol = @color == :black ? "\u265C".encode('utf-8') : "\u2656".encode('utf-8')
     end
     def diagnol_dirs
         return []
@@ -68,7 +69,7 @@ class Bishop < Piece
     include Slideable
     def initialize(pos,board)
         super
-        @symbol = 'B'
+        @symbol = @color == :black ? "\u265D".encode('utf-8') : "\u2657".encode('utf-8')
     end
     def horizontal_dirs
         return []
@@ -82,7 +83,7 @@ class Queen < Piece
     include Slideable
     def initialize(pos,board)
         super
-        @symbol = 'Q'
+        @symbol = @color == :black ? "\u265B".encode('utf-8') : "\u2655".encode('utf-8')
     end
 end
 
@@ -90,7 +91,7 @@ class Knight < Piece
     include Stepable
     def initialize(pos,board)
         super
-        @symbol = 'k'
+        @symbol = @color == :black ? "\u265E".encode('utf-8') : "\u2658".encode('utf-8')
     end
     protected
     def move_diff
@@ -112,8 +113,9 @@ class King < Piece
     attr_reader :starting_pos
     def initialize(pos,board)
         super
-        @symbol = 'K'
+        @symbol = @color == :black ? "\u265A".encode('utf-8') : "\u2654".encode('utf-8')
         @starting_pos = pos
+        @the_king = true
     end
     
     protected
@@ -135,7 +137,7 @@ class Pawn < Piece
     def initialize(pos,board)
         super
         @start_pos = pos
-        @symbol = 'P'
+        @symbol = @color == :black ? "\u265F".encode('utf-8') : "\u2659".encode('utf-8')
     end
 
     def moves
@@ -228,10 +230,11 @@ end
 
 class NullPiece
     include Singleton
-    attr_reader :symbol, :color
+    attr_reader :symbol, :color, :the_king
     def initialize
         @symbol = "n"
         @color = nil
+        @the_king = false
     end
 
     def valid_moves
