@@ -7,28 +7,54 @@ class Game
         @board = Board.new
         @display = Display.new(@board)
         cursor = @display.cursor
-        @players = [Player.new(cursor,'Player1',:white),Player.new(cursor,'player2',:black)]
+        @players = [Player.new(cursor,'Player 1',:white),Player.new(cursor,'player 2',:black)]
+        @current_player = @players[0]
     end
 
 require 'byebug'
     def play
-        player = @players[0]
-        while true  
+        # debugger
+        until game_over?
+          player = @current_player
+          moved = false
+         while moved == false  
             display.render
+            puts "Current Player: #{@current_player.player_name}"
             moves = player.make_move
             start_pos,end_pos = moves
             if !start_pos.nil? && !end_pos.nil?
                 start_pos,end_pos = moves
-                board.move_piece(start_pos,end_pos)
+               moved = board.move_piece(start_pos,end_pos)
             end
-            system('clear')
+         system('clear')
+          end
+          switch_player
+        end
+        winner_message
+    end
+
+    def switch_player
+        @current_player  == @players[0] ? @current_player = @players[-1] : @current_player = @players[0]
+    end
+
+    def game_over?
+        board.checkmate?(:black) || board.checkmate?(:white)
+    end
+
+    def winner_message
+        if @board.checkmate?(:black)
+            puts "Congratulations #{@players[-1].player_name} you WON!"
+        else
+            puts puts "Congratulations #{@players[0].player_name} you WON!"
         end
     end
 
 end
  g = Game.new
 
-#  g.board.move_piece([6,5],[5,5])
+#  g.board.move_piece([6,7],[5,7])
+#  debugger
+# g.board[[7,7]].valid_moves
 #   g.board.move_piece([1,4],[3,4])
 #   g.board.move_piece([6,6],[4,6])
 #  g.board.move_piece([0,3],[4,7])

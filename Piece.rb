@@ -51,8 +51,8 @@ class Piece
     end
 end
 
-
 class Rook < Piece
+   
     include Slideable
     def initialize(pos,board)
         super
@@ -109,9 +109,11 @@ end
 
 class King < Piece
     include Stepable
+    attr_reader :starting_pos
     def initialize(pos,board)
         super
         @symbol = 'K'
+        @starting_pos = pos
     end
     
     protected

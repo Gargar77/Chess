@@ -1,5 +1,5 @@
 class Player
-    attr_reader :cursor, :selected_pos
+    attr_reader :cursor, :selected_pos, :player_name, :color
     def initialize(cursor,player_name,color)
        @cursor, @player_name, @color = cursor,player_name,color
        @selected_pos = nil

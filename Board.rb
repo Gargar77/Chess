@@ -39,6 +39,7 @@ class Board
         piece.pos = end_pos
         self[start_pos] = sentinel
         self[end_pos] = piece
+        return true
     end
 
     def move_piece!(start_pos,end_pos)
@@ -57,10 +58,15 @@ class Board
     def checkmate?(color)
       king_pos = find_king(color)
       king_moves = self[king_pos].moves
-      return true if king_moves == []
+      return true if king_moves == [] && !king_start_pos?(color)
       opposing_moves = opposing_moves(color)
       return true if in_check?(color) && king_moves.all? { |move| opposing_moves.include?(move)}
       false
+    end
+
+    def king_start_pos?(color)
+      pos = find_king(color)
+      pos == self[pos].starting_pos
     end
     
     def dup
@@ -148,12 +154,6 @@ class Board
         end
       end
       true
-    end
-
-    
+    end    
 end
-
-
-b = Board.new
-  
 

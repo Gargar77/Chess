@@ -16,30 +16,33 @@ module Slideable
        current_possible_moves = horizontal_dirs + vertical_dirs + diagnol_dirs
        return current_possible_moves
     end
-
+require "byebug"
     def vertical_dirs
         diffs = [[1,0],[-1,0]]
         start_pos = self.pos
         vertical_positions = []
-
         diffs.each do |dif|
             row_diff,col_diff = dif
             current_pos = start_pos
+            row,col = current_pos
+            current_pos = [row + row_diff, col + col_diff]
 
             while valid_pos?(current_pos)
+                my_color = self.color
                 row,col = current_pos
-                current_pos = [row + row_diff, col + col_diff]
                 vertical_positions << current_pos
+               if my_color == :white
+                break if board[current_pos].color == :black
+               else
+                break board[current_pos].color == :white
+               end
+                current_pos = [row + row_diff, col + col_diff]
             end
-            vertical_positions.pop
         end
         return vertical_positions
     end
 
     def horizontal_dirs
-    #   horizontal_dirs = left_positions + right_positions
-    #   return horizontal_dirs
-
         diffs = [[0,-1],[0,1]]
         start_pos = self.pos
         horizontal_positions = []
@@ -47,12 +50,19 @@ module Slideable
         diffs.each do |dif|
             row_diff,col_diff = dif
             current_pos = start_pos
+            row,col = current_pos
+            current_pos = [row + row_diff, col + col_diff]
             while valid_pos?(current_pos)
+                my_color = self.color
                 row,col = current_pos
-                current_pos = [row + row_diff, col + col_diff]
                 horizontal_positions << current_pos
+                if my_color == :white
+                    break if board[current_pos].color == :black
+                else
+                    break board[current_pos].color == :white
+                end
+                current_pos = [row + row_diff, col + col_diff]
             end
-            horizontal_positions.pop
         end
         return horizontal_positions
     end
@@ -65,12 +75,20 @@ module Slideable
 
             row_diff,col_diff = dif
             current_pos = start_pos
-          while valid_pos?(current_pos)
             row,col = current_pos
             current_pos = [row + row_diff , col + col_diff]
+
+          while valid_pos?(current_pos)
+            my_color = self.color
+            row,col = current_pos
             diag_positions << current_pos
+            if my_color == :white
+                break if board[current_pos].color == :black
+            else
+                break board[current_pos].color == :white
+            end
+            current_pos = [row + row_diff , col + col_diff]
           end
-            diag_positions.pop
         end
 
         return diag_positions

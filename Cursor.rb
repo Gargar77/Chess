@@ -33,12 +33,13 @@ MOVES = {
 
 class Cursor
 include Process
-  attr_reader :cursor_pos, :board, :selected, :debug
-
+  attr_reader :cursor_pos, :board, :selected, :debug, :selected_pos
+  attr_accessor :selected
   def initialize(cursor_pos, board)
     @cursor_pos = cursor_pos
     @board = board
     @selected = false
+    @selected_pos = nil
     @debug = false
   end
 
@@ -85,6 +86,7 @@ include Process
         nil
     when :return,:space
         @selected == true ?  @selected = false : @selected = true
+        @selected_pos = cursor_pos
         return cursor_pos
     when :ctrl_c
         Process.exit(0)
