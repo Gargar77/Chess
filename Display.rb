@@ -17,10 +17,10 @@ class Display
                 puts " Valid moves: " + (board[cursor.cursor_pos].valid_moves).to_s
                 puts " Current piece color: #{board[cursor.cursor_pos].color.to_s}"
                 puts " Class #{board[cursor.cursor_pos].class.to_s}"
-            puts 
+            puts
             puts "current position: #{cursor.cursor_pos}"
             puts " :white in_check? #{board.in_check?(:white).to_s}"
-            puts " :black in check? #{board.in_check?(:black).to_s}"
+            puts " :black in-check? #{board.in_check?(:black).to_s}"
         end
     end
 

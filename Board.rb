@@ -33,8 +33,16 @@ class Board
       raise "There is no piece at #{start_pos.to_s}!" if self[start_pos] == sentinel
       [start_pos,end_pos].each {|el| raise "#{el.to_s} is an invalid position!" if !valid_pos?(el)} 
       raise "cannot move to #{end_pos.to_s}!" if self[end_pos].color == self[start_pos].color
-      
+      valid_moves = self[start_pos].valid_moves
+      raise "Invalid move!" if !valid_moves.include?(end_pos)
         piece = self[start_pos]
+        piece.pos = end_pos
+        self[start_pos] = sentinel
+        self[end_pos] = piece
+    end
+
+    def move_piece!(start_pos,end_pos)
+      piece = self[start_pos]
         piece.pos = end_pos
         self[start_pos] = sentinel
         self[end_pos] = piece
@@ -149,4 +157,3 @@ end
 b = Board.new
   
 
-b.dup

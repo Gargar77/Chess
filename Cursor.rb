@@ -85,11 +85,12 @@ include Process
         nil
     when :return,:space
         @selected == true ?  @selected = false : @selected = true
-        return @cursor_pos
+        return cursor_pos
     when :ctrl_c
         Process.exit(0)
     when :debug
         @debug == true ? @debug = false : @debug = true
+        nil
     end
   end
 

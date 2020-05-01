@@ -38,7 +38,7 @@ class Piece
         dup_board = board.dup
         start_pos = self.pos
         my_color = self.color
-        dup_board.move_piece(start_pos,end_pos)
+        dup_board.move_piece!(start_pos,end_pos)
         status = dup_board.in_check?(my_color)
 
     end
